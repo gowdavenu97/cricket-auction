@@ -17,7 +17,7 @@ app.add_middleware(
 )
 
 # MongoDB
-client = MongoClient("mongodb://localhost:27017/")
+client = MongoClient(MONGO_URI)
 db = client["cricket_auction"]
 players_collection = db["players"]
 
@@ -205,3 +205,4 @@ async def websocket_endpoint(websocket: WebSocket):
         await manager.disconnect(websocket)
     except Exception:
         await manager.disconnect(websocket)
+
