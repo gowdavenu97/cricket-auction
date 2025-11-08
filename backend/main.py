@@ -1,5 +1,6 @@
 # backend/main.py
 import asyncio
+import os
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from pymongo import MongoClient
@@ -17,6 +18,7 @@ app.add_middleware(
 )
 
 # MongoDB
+MONGO_URI = os.getenv("MONGO_URI")
 client = MongoClient(MONGO_URI)
 db = client["cricket_auction"]
 players_collection = db["players"]
@@ -205,4 +207,5 @@ async def websocket_endpoint(websocket: WebSocket):
         await manager.disconnect(websocket)
     except Exception:
         await manager.disconnect(websocket)
+
 
